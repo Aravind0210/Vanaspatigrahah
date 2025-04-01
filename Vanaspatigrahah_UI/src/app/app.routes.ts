@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { PesticidesComponent } from './pesticides/pesticides.component';
 
 
 
@@ -27,6 +26,11 @@ export const routes: Routes = [
   {
     path: 'plant-details/:id', 
     loadComponent: () => import('./plant-details/plant-details.component').then(c => c.PlantDetailsComponent)
+  },
+ 
+  {
+    path: 'addshop',
+    loadComponent: () => import('./addshop/addshop.component').then(c => c.AddShopComponent)
   },
   {
     path: 'pesticides',

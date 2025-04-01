@@ -21,6 +21,6 @@ export class LoginComponent {
     // Add authentication logic here
     console.log('Login attempt:', this.username);
     // Redirect to home after successful login
-    this.router.navigate(['/']);
+    this.router.navigate(['/addshop']);
   }
 }

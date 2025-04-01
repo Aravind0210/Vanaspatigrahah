@@ -1,47 +1,66 @@
 <div class="min-h-screen relative">
   <!-- Background Image -->
-  <div class="absolute inset-0 -z-10 w-full h-full bg-cover bg-center"
-       [ngStyle]="{'background-image': 'url(' + backgrounds[currentImageIndex] + ')'}">
-  </div>
-  
+  <div
+    class="absolute inset-0 -z-10 w-full h-full bg-cover bg-center"
+    [ngStyle]="{
+      'background-image': 'url(' + backgrounds[currentImageIndex] + ')'
+    }"
+  ></div>
+
   <!-- Overlay -->
   <div class="absolute inset-0 -z-10 bg-gradient-to-br from-green-50/90"></div>
 
   <!-- Background Pattern -->
   <div class="fixed inset-0 opacity-5 pattern-dots-lg"></div>
 
-<app-header></app-header>
+  <app-header></app-header>
 
   <!-- Hero Section -->
   <section class="container mx-auto px-4 pt-16 text-center">
-    <h2 class="text-5xl font-extrabold text-emerald-900 mb-6" style="font-family: 'Georgia', serif;">
+    <h2
+      class="text-5xl font-extrabold text-emerald-900 mb-6"
+      style="font-family: 'Georgia', serif"
+    >
       Discover Nature's Treasures
     </h2>
-    <p class="text-xl text-gray-700 max-w-2xl mx-auto mb-12" style="font-family: 'Arial', sans-serif;">
-      Your one-stop destination for premium plants, gardening essentials, and expert botanical guidance.
+    <p
+      class="text-xl text-gray-700 max-w-2xl mx-auto mb-12"
+      style="font-family: 'Arial', sans-serif"
+    >
+      Your one-stop destination for premium plants, gardening essentials, and
+      expert botanical guidance.
     </p>
   </section>
 
-
   <div class="max-w-lg mx-auto mb-20">
     <div class="relative">
-      <input type="text" 
-             [(ngModel)]="searchQuery" 
-             placeholder="Search fertilizers or shops..." 
-             class="w-full px-6 py-4 rounded-xl border-2 border-emerald-100 focus:border-emerald-400 
-                    focus:outline-none bg-white/90 backdrop-blur-sm pl-14 text-lg shadow-sm">
-      <span class="material-icons absolute left-4 top-1/2 -translate-y-1/2 text-emerald-400 text-2xl">search</span>
+      <input
+        type="text"
+        [(ngModel)]="searchQuery"
+        placeholder="Search fertilizers or shops..."
+        class="w-full px-6 py-4 rounded-xl border-2 border-emerald-100 focus:border-emerald-400 focus:outline-none bg-white/90 backdrop-blur-sm pl-14 text-lg shadow-sm"
+      />
+      <span
+        class="material-icons absolute left-4 top-1/2 -translate-y-1/2 text-emerald-400 text-2xl"
+        >search</span
+      >
     </div>
   </div>
 
   <!-- Search Results -->
   <div *ngIf="showSearchResults" class="container mx-auto px-4 pb-16">
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-      <div *ngFor="let shop of paginatedShops" 
-           class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300">
+    <div
+      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+    >
+      <div
+        *ngFor="let shop of paginatedShops"
+        class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300"
+      >
         <a [routerLink]="['/plant-details', shop.id]" class="block">
           <div class="p-6">
-            <h3 class="text-xl font-semibold text-gray-800 mb-2">{{ shop.SHOP_NAME }}</h3>
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">
+              {{ shop.SHOP_NAME }}
+            </h3>
             <div class="space-y-2 text-gray-600">
               <p class="flex items-center">
                 <span class="material-icons mr-2">location_on</span>
@@ -51,7 +70,9 @@
                 <span class="material-icons mr-2">local_florist</span>
                 {{ shop.Common_Name }}
               </p>
-              <p class="text-green-600 font-bold mt-4">₹{{ shop.Average_Price }}</p>
+              <p class="text-green-600 font-bold mt-4">
+                ₹{{ shop.Average_Price }}
+              </p>
             </div>
           </div>
         </a>
@@ -59,31 +80,24 @@
     </div>
 
     <!-- Pagination -->
-    <div *ngIf="showSearchResults && totalPages > 1" 
-         class="mt-8 flex justify-center gap-4">
-      <button (click)="prevPage()" 
-              [disabled]="currentPage === 1"
-              class="pagination-btn">
+    <div
+      *ngIf="showSearchResults && totalPages > 1"
+      class="mt-8 flex justify-center gap-4"
+    >
+      <button
+        (click)="prevPage()"
+        [disabled]="currentPage === 1"
+        class="pagination-btn"
+      >
         <span class="material-icons">chevron_left</span>
       </button>
-      <button (click)="nextPage()" 
-              [disabled]="currentPage === totalPages"
-              class="pagination-btn">
+      <button
+        (click)="nextPage()"
+        [disabled]="currentPage === totalPages"
+        class="pagination-btn"
+      >
         <span class="material-icons">chevron_right</span>
       </button>
     </div>
   </div>
 </div>
-
-<style>
-  .nav-link {
-    @apply flex items-center gap-2 text-gray-600 hover:text-green-600 transition-colors;
-  }
-  .pagination-btn {
-    @apply p-2 rounded-full bg-white shadow-md hover:bg-green-50 disabled:opacity-50 
-           disabled:hover:bg-white transition-colors;
-  }
-  .pattern-dots-lg {
-    background-size: 24px 24px;
-  }
-</style>

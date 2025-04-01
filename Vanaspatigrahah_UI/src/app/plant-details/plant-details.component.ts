@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DataService } from '../service/data.service';
-import { CommonModule } from '@angular/common';  // ✅ Import this
+import { CommonModule } from '@angular/common';
+import { HeaderComponent } from "../header/header.component";  // ✅ Import this
 @Component({
   selector: 'app-plant-details',
   imports: [
-    CommonModule,  // ✅ Add this to enable ngClass
-  ],
+    CommonModule,
+    HeaderComponent
+],
 
   templateUrl: './plant-details.component.html',
   styleUrls: ['./plant-details.component.css'],

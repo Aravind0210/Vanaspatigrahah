@@ -34,18 +34,6 @@
 
   <div class="max-w-lg mx-auto mb-20">
     <div class="relative">
-<<<<<<< Updated upstream
-      <input
-        type="text"
-        [(ngModel)]="searchQuery"
-        placeholder="Search fertilizers or shops..."
-        class="w-full px-6 py-4 rounded-xl border-2 border-emerald-100 focus:border-emerald-400 focus:outline-none bg-white/90 backdrop-blur-sm pl-14 text-lg shadow-sm"
-      />
-      <span
-        class="material-icons absolute left-4 top-1/2 -translate-y-1/2 text-emerald-400 text-2xl"
-        >search</span
-      >
-=======
       <input type="text" 
              [(ngModel)]="searchQuery" 
              (keydown.enter)="showResults()" 
@@ -53,7 +41,6 @@
              class="w-full px-6 py-4 rounded-xl border-2 border-emerald-100 focus:border-emerald-400 
                     focus:outline-none bg-white/90 backdrop-blur-sm pl-14 text-lg shadow-sm">
       <span class="material-icons absolute left-4 top-1/2 -translate-y-1/2 text-emerald-400 text-2xl">search</span>
->>>>>>> Stashed changes
     </div>
   </div>
   
@@ -76,62 +63,9 @@ class="p-6 rounded-lg shadow-md hover:shadow-xl transition-transform transform h
 </a>
 
 </div>
-</div>
 
 
 
-    <!-- Display Search Results -->
-<div 
-    *ngIf="showSearchResults" 
-    class="w-full px-6 md:px-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-10"
-  >
-    <div 
-      *ngFor="let shop of paginatedShops" 
-      class="p-6 rounded-lg shadow-md hover:shadow-xl transition-transform transform hover:scale-105 duration-300 text-green-900"
-    >
-    <a [routerLink]="['/plant-details', shop.id]" class="block p-4 bg-white shadow-lg rounded-lg cursor-pointer">
-      <h3 class="text-2xl font-semibold mb-2">{{ shop.SHOP_NAME }}</h3>
-      <p class="text-lg">📍 {{ shop.SHOP_ADDRESS }}</p>
-      <p class="text-lg">🌱 <b>{{ shop.Common_Name }}</b></p>
-      <p class="font-bold text-lg mt-2">💰 Rs.{{ shop.Average_Price }}</p>
-    </a>
-
-</div>
-
-<<<<<<< Updated upstream
-  <!-- Search Results -->
-  <div *ngIf="showSearchResults" class="container mx-auto px-4 pb-16">
-    <div
-      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
-    >
-      <div
-        *ngFor="let shop of paginatedShops"
-        class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300"
-      >
-        <a [routerLink]="['/plant-details', shop.id]" class="block">
-          <div class="p-6">
-            <h3 class="text-xl font-semibold text-gray-800 mb-2">
-              {{ shop.SHOP_NAME }}
-            </h3>
-            <div class="space-y-2 text-gray-600">
-              <p class="flex items-center">
-                <span class="material-icons mr-2">location_on</span>
-                {{ shop.SHOP_ADDRESS }}
-              </p>
-              <p class="flex items-center">
-                <span class="material-icons mr-2">local_florist</span>
-                {{ shop.Common_Name }}
-              </p>
-              <p class="text-green-600 font-bold mt-4">
-                ₹{{ shop.Average_Price }}
-              </p>
-            </div>
-          </div>
-        </a>
-      </div>
-    </div>
-=======
->>>>>>> Stashed changes
 
     <!-- Pagination -->
     <div

@@ -45,22 +45,29 @@ app.get("/api/shops", async (req, res) => {
   }
 });
 
-app.get("/api/fertilizers", async (req, res) => {
+app.get('/api/fertilizers', async (req, res) => {
   try {
     const pool = await sql.connect(config);
-    const search = req.query.search ? `%${req.query.search}%` : "%";
+    const searchTerm = req.query.search || ''; // Default to empty string if no search term
+
+    let query = 'SELECT * FROM MASTERFERTILIZER';
+    if (searchTerm) {
+      query += ' WHERE Name LIKE @search';
+    }
 
     const result = await pool
       .request()
-      .input("search", sql.NVarChar, search)
-      .query(`SELECT * FROM MASTERFERTILIZER WHERE Name LIKE @search`);
+      .input('search', sql.NVarChar, `%${searchTerm}%`) // Apply search term if available
+      .query(query);
 
-    res.json(result.recordset);
+    res.json(result.recordset); // Send the fertilizers as JSON
   } catch (error) {
-    console.error("Error fetching fertilizers:", error);
-    res.status(500).json({ error: "Internal Server Error" });
+    console.error('Error fetching fertilizers:', error); // This will log the error
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
+
 
 
 

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { DataService } from '../service/data.service'; // Import the DataService
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HeaderComponent } from "../header/header.component";
@@ -8,32 +9,12 @@ import { HeaderComponent } from "../header/header.component";
   imports: [CommonModule, FormsModule, HeaderComponent],
   standalone: true,
   templateUrl: './fertilizer.component.html',
-  styleUrls: ['./fertilizer.component.css'] 
+  styleUrls: ['./fertilizer.component.css']
 })
-export class FertilizerComponent {
-  fertilizers = [
-    {
-      name: 'Nitrogen Fertilizer',
-      description: 'Boosts plant growth and improves yield.',
-      price: 20,
-      image: 'assets/images/nitrogen-fertilizer.jpg',
-      shopName: 'Green Garden Solutions'
-    },
-    {
-      name: 'Phosphorus Fertilizer',
-      description: 'Enhances root development and flowering.',
-      price: 25,
-      image: 'assets/images/phosphorus-fertilizer.jpg',
-      shopName: 'Nature\'s Best Nursery'
-    },
-    {
-      name: 'Potassium Fertilizer',
-      description: 'Improves plant resistance and quality.',
-      price: 30,
-      image: 'assets/images/potassium-fertilizer.jpg',
-      shopName: 'Organic Farm Supplies'
-    }
-  ];
+export class FertilizerComponent implements OnInit {
+  fertilizers: any[] = [];
+  allFertilizers: any[] = []; // Store all fertilizers
+  filterText: string = '';
 
   backgrounds = [
     '/photo2.avif',
@@ -41,17 +22,32 @@ export class FertilizerComponent {
   ];
   currentImageIndex = 0;
 
-  filterText: string = '';
+  constructor(private dataService: DataService) {}
 
-  get filteredFertilizers() {
-    return this.fertilizers.filter(fertilizer => 
-      fertilizer.shopName.toLowerCase().includes(this.filterText.toLowerCase())
+  ngOnInit() {
+    // Fetch all fertilizers when the component loads
+    this.fetchFertilizers();
+
+  }
+
+  fetchFertilizers() {
+    // Fetch all fertilizers from the backend and store them
+    this.dataService.getFertilizers('').subscribe(
+      (data) => {
+        this.allFertilizers = data;  // Store all fertilizers
+        this.fertilizers = data;     // Display all fertilizers initially
+      },
+      (error) => {
+        console.error('Error fetching fertilizers:', error);
+      }
     );
   }
 
-  constructor() {
-    setInterval(() => {
-      this.currentImageIndex = (this.currentImageIndex + 1) % this.backgrounds.length;
-    }, 5000); // Change background every 5 seconds
+  // Trigger the search when user types
+  onSearch() {
+    // Filter the fertilizers based on the search term
+    this.fertilizers = this.allFertilizers.filter(fertilizer =>
+      fertilizer.Name.toLowerCase().includes(this.filterText.toLowerCase())
+    );
   }
 }

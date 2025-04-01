@@ -34,17 +34,13 @@
 
   <div class="max-w-lg mx-auto mb-20">
     <div class="relative">
-      <input
-        type="text"
-        [(ngModel)]="searchQuery"
-        (keydown.enter)="showResults()"
-        placeholder="Search fertilizers or shops..."
-        class="w-full px-6 py-4 rounded-xl border-2 border-emerald-100 focus:border-emerald-400 focus:outline-none bg-white/90 backdrop-blur-sm pl-14 text-lg shadow-sm"
-      />
-      <span
-        class="material-icons absolute left-4 top-1/2 -translate-y-1/2 text-emerald-400 text-2xl"
-        >search</span
-      >
+      <input type="text" 
+             [(ngModel)]="searchQuery" 
+             (keydown.enter)="showResults()" 
+             placeholder="Search fertilizers or shops..." 
+             class="w-full px-6 py-4 rounded-xl border-2 border-emerald-100 focus:border-emerald-400 
+                    focus:outline-none bg-white/90 backdrop-blur-sm pl-14 text-lg shadow-sm">
+      <span class="material-icons absolute left-4 top-1/2 -translate-y-1/2 text-emerald-400 text-2xl">search</span>
     </div>
   </div>
 
@@ -85,6 +81,10 @@
       </div>
       </a>
     </div>
+</div>
+
+
+
 
     <div
       *ngIf="showSearchResults && totalPages > 1"
@@ -106,4 +106,4 @@
       </button>
     </div>
   </div>
-</div>
+

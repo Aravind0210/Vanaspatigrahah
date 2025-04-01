@@ -16,10 +16,12 @@
     <div class="max-w-lg mx-auto mb-16">
       <div class="relative">
         <input type="text" 
-               [(ngModel)]="filterText" 
-               placeholder="Search fertilizers or shops..." 
-               class="w-full px-6 py-4 rounded-xl border-2 border-emerald-100 focus:border-emerald-400 
-                      focus:outline-none bg-white/90 backdrop-blur-sm pl-14 text-lg shadow-sm">
+        [(ngModel)]="filterText" 
+        (input)="onSearch()" 
+        placeholder="Search fertilizers or shops..." 
+        class="w-full px-6 py-4 rounded-xl border-2 border-emerald-100 focus:border-emerald-400 
+               focus:outline-none bg-white/90 backdrop-blur-sm pl-14 text-lg shadow-sm" />
+ 
         <span class="material-icons absolute left-4 top-1/2 -translate-y-1/2 text-emerald-400 text-2xl">search</span>
       </div>
     </div>
@@ -27,25 +29,33 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
       <div class="group bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl 
                   transition-all duration-300 hover:-translate-y-2 border border-emerald-50" 
-           *ngFor="let fertilizer of filteredFertilizers">
-        <div class="p-8">
-          <div class="flex flex-col gap-4 mb-6">
-            <div class="flex justify-between items-center">
-              <p class="text-sm font-semibold text-emerald-600 bg-emerald-50 px-4 py-2 rounded-lg">
-                {{fertilizer.shopName}}
-              </p>
-              <div class="bg-gradient-to-r from-emerald-500 to-blue-500 text-white px-5 py-2 
-                          rounded-lg text-sm font-bold shadow-sm group-hover:scale-105 transition-transform">
-                {{fertilizer.price | currency}}
+           *ngFor="let fertilizer of fertilizers">
+           <div class="p-8">
+            <div class="flex flex-col gap-4 mb-6">
+              <div class="flex justify-between items-center">
+                <h3 *ngIf="fertilizer?.Name" class="text-xl font-bold text-gray-800">
+                  {{fertilizer?.Name}}
+                </h3>
+                <hr>
+        
+                <p *ngIf="fertilizer?.Composition" class="text-sm font-semibold text-emerald-600 bg-emerald-50 px-4 py-2 rounded-lg">
+                  {{fertilizer?.Composition}}
+                </p>
+                <div *ngIf="fertilizer?.Price_INR_kg" class="bg-gradient-to-r from-emerald-500 to-blue-500 text-white px-5 py-2 
+                rounded-lg text-sm font-bold shadow-sm group-hover:scale-105 transition-transform">
+                  RS. {{fertilizer?.Price_INR_kg}}  <!-- Displaying as string without currency formatting -->
+                </div>
               </div>
+              <h2 *ngIf="fertilizer?.Usage_Instructions" class="text-2xl font-bold text-gray-800 group-hover:text-emerald-600 transition-colors">
+                {{fertilizer?.Usage_Instructions}}
+              </h2>
+              <p *ngIf="fertilizer?.Example_Plants" class="text-gray-600 leading-relaxed">
+                {{fertilizer?.Example_Plants}}
+              </p>
             </div>
-            <h2 class="text-2xl font-bold text-gray-800 group-hover:text-emerald-600 transition-colors">
-              {{fertilizer.name}}
-            </h2>
-            <p class="text-gray-600 leading-relaxed">{{fertilizer.description}}</p>
-          </div>
         </div>
       </div>
     </div>
+    
   </div>
 </div>

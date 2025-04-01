@@ -45,6 +45,26 @@ app.get("/api/shops", async (req, res) => {
   }
 });
 
+app.get('/api/shopsby/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await pool
+      .request()
+      .input('id', sql.Int, id)
+      .query(`SELECT * FROM mastervanasplants WHERE ID = @id`);
+
+    if (result.recordset.length === 0) {
+      return res.status(404).json({ error: 'Plant not found' });
+    }
+
+    res.json(result.recordset[0]);
+  } catch (error) {
+    console.error('Error fetching plant details:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+
 
 
 const PORT = process.env.PORT || 3000;

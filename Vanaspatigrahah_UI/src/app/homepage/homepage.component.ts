@@ -3,11 +3,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DataService } from '../service/data.service';
 import { HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-homepage',
   standalone: true,
-  imports: [CommonModule, FormsModule,HttpClientModule ], // ✅ Ensure HttpClientModule is imported
+  imports: [CommonModule, RouterModule, FormsModule,HttpClientModule ], // ✅ Ensure HttpClientModule is imported
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.css']
 })

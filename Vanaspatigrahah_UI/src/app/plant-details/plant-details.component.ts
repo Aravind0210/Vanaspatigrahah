@@ -1,44 +1,30 @@
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { DataService } from '../service/data.service';
+import { CommonModule } from '@angular/common';  // ✅ Import this
 @Component({
   selector: 'app-plant-details',
-  imports:[CommonModule],
-  templateUrl: './plant-details.component.html',
-  styleUrls: ['./plant-details.component.css']
-})
-export class PlantDetailsComponent {
-  plant = {
-    name: 'Recuerdos Plant',
-    price: 9.99,
-    tamilName: 'மரபுசார் செடி',
-    family: 'Cactaceae',
-    shopName: 'GreenLeaf Nursery',
-    shopLocation: 'Chennai, Tamil Nadu',
-    images: [
-      'assets/plants/plant1.jpg',
-      'assets/plants/plant2.jpg',
-      'assets/plants/plant3.jpg'
-    ],
-    growthMethods: 'Water regularly, ensure well-drained soil, provide moderate sunlight.',
-    commonDiseases: 'Root rot, powdery mildew, leaf spots.',
-    diseaseControl: 'Use neem oil, maintain proper air circulation, avoid overwatering.',
-    uses: 'Air purification, medicinal uses, home decor.',
-    irrigation: 'Drip irrigation preferred, water twice a week in summer.'
-  };
+  imports: [
+    CommonModule,  // ✅ Add this to enable ngClass
+  ],
 
-  selectedImage = this.plant.images[0];
-  tabs = [
-    'Growth & Maintenance Methods',
-    'Common Diseases',
-    'Disease Control',
-    'Uses of Plants',
-    'Irrigation Requirements and Equipment'
-  ];
+  templateUrl: './plant-details.component.html',
+  styleUrls: ['./plant-details.component.css'],
+})
+export class PlantDetailsComponent implements OnInit {
+  plant: any;
+  tabs = ['Growth & Maintenance Methods', 'Common Diseases', 'Disease Control', 'Uses of Plants', 'Irrigation Requirements and Equipment'];
   selectedTab = this.tabs[0];
 
-  changeImage(image: string) {
-    this.selectedImage = image;
+  constructor(private route: ActivatedRoute, private dataService: DataService) {}
+
+  ngOnInit() {
+    const plantId = this.route.snapshot.paramMap.get('id');
+    if (plantId) {
+      this.dataService.getPlantById(plantId).subscribe((data) => {
+        this.plant = data;
+      });
+    }
   }
 
   selectTab(tab: string) {

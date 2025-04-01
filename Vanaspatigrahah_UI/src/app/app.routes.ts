@@ -5,5 +5,6 @@ import { PlantDetailsComponent } from './plant-details/plant-details.component';
 export const routes: Routes = [
   { path: '', component: HomepageComponent }, // Homepage (default route)
   { path: 'plant-details', component: PlantDetailsComponent }, // Plant Details Page
+  { path: 'plant-details/:id', component: PlantDetailsComponent }, // Route with ID
   { path: '**', redirectTo: '', pathMatch: 'full' } // Redirect unknown paths to homepage
 ];

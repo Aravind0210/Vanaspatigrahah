@@ -16,7 +16,7 @@ const upload = multer({ storage: storage });
 const config = {
   user: 'sa',
   password: '20p256',
-  server: 'LAPTOP-RVD8BNNA\\SQLEXPRESS',
+  server: '192.168.43.44',
   database: 'vanaspatigrahah',
   options: {
     encrypt: false,

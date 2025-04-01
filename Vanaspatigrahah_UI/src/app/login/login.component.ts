@@ -9,18 +9,22 @@ import { Router } from '@angular/router';
   imports: [CommonModule, FormsModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
-
 })
 export class LoginComponent {
-  username: string = 'admin';
-  password: string = 'admin';
+  enteredUsername: string = '';
+  enteredPassword: string = '';
+
+
 
   constructor(private router: Router) {}
 
   onSubmit() {
-    // Add authentication logic here
-    console.log('Login attempt:', this.username);
-    // Redirect to home after successful login
-    this.router.navigate(['/addshop']);
+    if (this.enteredUsername.trim().toLowerCase() === 'admin' && this.enteredPassword === 'admin') {
+      console.log('Login successful');
+      this.router.navigate(['/addshop']);
+    } else {
+      alert('Invalid username or password. Please try again.');
+    }
   }
+  
 }

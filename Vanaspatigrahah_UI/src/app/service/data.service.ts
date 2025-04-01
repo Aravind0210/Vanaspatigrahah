@@ -20,6 +20,9 @@ export class DataService {
   }
   
 
+  insertShopData(shopData: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/api/insertShopData`, shopData);
+  }
 
 
   getPlantById(id: string): Observable<any> {

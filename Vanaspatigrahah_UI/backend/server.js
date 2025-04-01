@@ -29,6 +29,39 @@ pool.connect()
   .catch(err => console.error('Error connecting to the database:', err));
 
 
+// Insert data into the database
+app.post('/api/insertShopData', async (req, res) => {
+  const {
+    shopName, shopAddress, phoneNo, location, commonName, tamilName, botanicalName, 
+    family, variety, avgPrice, growth, commonDiseases, diseaseControl, mfps, 
+    mfpDosage, commercialPrices, irrigationReq, irrigationFreq, profitMargin, 
+    usesOfPlants, fertilizerRec, pesticideRec
+  } = req.body;
+
+  try {
+    await sql.connect(config);
+    const result = await sql.query(`
+      INSERT INTO mastervanasplants 
+      (SHOP_NAME, SHOP_ADDRESS, Phone_No, location, Common_Name, Tamil_Name, Botanical_Name, 
+       Family, Variety_of_Species, Average_Price, Growth_Maintenance_Methods, Common_Diseases, 
+       Disease_Control_Methods, MFPs, MFPDosage, Commercial_Product_Prices, 
+       Irrigation_Requirements_and_Equipment, Irrigation_Frequency, Profit_Margin_After_Maturity, 
+       Uses_of_Plants, Fertilizer_Recommendation, Pesticide_Recommendation)
+      VALUES 
+      ('${shopName}', '${shopAddress}', '${phoneNo}', '${location}', '${commonName}', '${tamilName}', 
+       '${botanicalName}', '${family}', '${variety}', '${avgPrice}', '${growth}', '${commonDiseases}', 
+       '${diseaseControl}', '${mfps}', '${mfpDosage}', '${commercialPrices}', '${irrigationReq}', 
+       '${irrigationFreq}', '${profitMargin}', '${usesOfPlants}', '${fertilizerRec}', '${pesticideRec}')
+    `);
+    res.status(200).send({ message: 'Data inserted successfully' });
+  } catch (error) {
+    console.error('Error inserting data:', error);
+    res.status(500).send({ message: 'Error inserting data' });
+  }
+});
+
+
+
 // API Endpoint to fetch shop details by name
 app.get("/api/shops", async (req, res) => {
   try {
@@ -36,7 +69,7 @@ app.get("/api/shops", async (req, res) => {
     const result = await pool
       .request()
       .input("search", sql.NVarChar, search + '%')  // Use correct wildcard
-      .query(`SELECT * FROM mastervanasplants WHERE SHOP_NAME LIKE @search`);
+      .query(`SELECT * FROM mastervanasplants WHERE SHOP_NAME LIKE @search OR Common_Name LIKE @search`);
   
     res.json(result.recordset);
   } catch (error) {

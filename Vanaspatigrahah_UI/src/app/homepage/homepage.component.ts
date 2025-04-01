@@ -2,13 +2,13 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DataService } from '../service/data.service';
-import { HttpClientModule } from '@angular/common/http';
+// import { HttpClient } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-
+import { HeaderComponent } from '../header/header.component';
 @Component({
   selector: 'app-homepage',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule,HttpClientModule ], // ✅ Ensure HttpClientModule is imported
+  imports: [CommonModule, RouterModule, FormsModule,  HeaderComponent], // ✅ Ensure HttpClientModule is imported
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.css']
 })
@@ -77,5 +77,10 @@ export class HomepageComponent implements OnInit {
 
   get totalPages() {
     return Math.ceil(this.shops.length / this.itemsPerPage);
+  }
+
+  onHeaderSearch(query: string) {
+    this.searchQuery = query;
+    this.showResults();
   }
 }

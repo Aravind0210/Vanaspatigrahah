@@ -1,75 +1,75 @@
-<div class="relative w-full h-screen flex flex-col items-center justify-center">
-  <!-- Background with zoom effect -->
-  <div class="absolute inset-0 -z-10 w-full h-full background-container"
+<div class="min-h-screen relative">
+  <!-- Background Image -->
+  <div class="absolute inset-0 -z-10 w-full h-full bg-cover bg-center"
        [ngStyle]="{'background-image': 'url(' + backgrounds[currentImageIndex] + ')'}">
   </div>
+  
+  <!-- Overlay -->
+  <div class="absolute inset-0 -z-10 bg-gradient-to-br from-green-50/90"></div>
 
-  <!-- Header -->
-  <header class="absolute top-5 left-0 w-full flex items-center justify-between px-8 md:px-16 text-green-900">
-    <h1 class="text-4xl md:text-5xl font-bold tracking-wide uppercase font-mono animate-bounce">
-      <span class="text-green-400">V</span><span class="text-yellow-400">A</span><span class="text-red-400">N</span><span class="text-blue-400">A</span>
-      <span class="text-pink-400">S</span><span class="text-orange-400">P</span><span class="text-purple-400">A</span><span class="text-teal-400">T</span>
-      <span class="text-indigo-400">I</span><span class="text-green-400">G</span><span class="text-yellow-400">R</span><span class="text-red-400">A</span>
-      <span class="text-blue-400">H</span>
-    </h1>
+  <!-- Background Pattern -->
+  <div class="fixed inset-0 opacity-5 pattern-dots-lg"></div>
 
-    <div class="relative w-full md:w-96 flex items-center bg-white rounded-full shadow-md px-4 py-2">
-      <input [(ngModel)]="searchQuery" type="text" placeholder="Search shops..." 
-        class="w-full text-gray-700 px-2 outline-none" />
-      <button *ngIf="searchQuery" (click)="searchQuery = ''; showSearchResults = false;" 
-        class="text-gray-500 hover:text-green-700 transition mx-2">✖</button>
-      <button (click)="showResults()" class="text-green-700 hover:scale-110 transition-transform">🔍</button>
-    </div>
-    
-    <button class="rounded-full bg-green-700 p-2 shadow-md hover:bg-green-800 transition-all duration-300 hover:scale-105">
-      <img src="/avatar.webp" alt="Admin Avatar" class="w-12 h-12 rounded-full border-2 border-white" />
-    </button>
-  </header>
+<app-header></app-header>
 
   <!-- Hero Section -->
-  <section class="text-center text-white px-6 flex flex-col items-center mt-12">
-    <h2 class="text-5xl md:text-6xl font-bold tracking-wide">Welcome to Vanaspatigrahah</h2>
-    <p class="mt-4 text-lg md:text-xl max-w-2xl">
-      Explore a lush world of plants, premium gardening tools, and expert guidance for your green haven.
+  <section class="container mx-auto px-4 py-16 text-center">
+    <h2 class="text-5xl font-bold text-gray-800 mb-6">Discover Nature's Treasures</h2>
+    <p class="text-xl text-gray-600 max-w-2xl mx-auto mb-12">
+      Your one-stop destination for premium plants, gardening essentials, and expert botanical guidance.
     </p>
   </section>
 
+  <!-- Search Results -->
+  <div *ngIf="showSearchResults" class="container mx-auto px-4 pb-16">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      <div *ngFor="let shop of paginatedShops" 
+           class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300">
+        <a [routerLink]="['/plant-details', shop.id]" class="block">
+          <div class="p-6">
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">{{ shop.SHOP_NAME }}</h3>
+            <div class="space-y-2 text-gray-600">
+              <p class="flex items-center">
+                <span class="material-icons mr-2">location_on</span>
+                {{ shop.SHOP_ADDRESS }}
+              </p>
+              <p class="flex items-center">
+                <span class="material-icons mr-2">local_florist</span>
+                {{ shop.Common_Name }}
+              </p>
+              <p class="text-green-600 font-bold mt-4">₹{{ shop.Average_Price }}</p>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
 
-
-<!-- Display Search Results -->
-<div 
-  *ngIf="showSearchResults" 
-  class="w-full px-6 md:px-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-10"
->
-  <div 
-  *ngFor="let shop of paginatedShops" 
-  [ngStyle]="{'background': 'linear-gradient(to right, #d4edda, #b8dfc1)'}"
-  class="p-6 rounded-lg shadow-md hover:shadow-xl transition-transform transform hover:scale-105 duration-300 text-green-900"
-  >
-  <a [routerLink]="['/plant-details', shop.id]" class="block p-4 bg-white shadow-lg rounded-lg cursor-pointer">
-    <h3 class="text-2xl font-semibold mb-2">{{ shop.SHOP_NAME }}</h3>
-    <p class="text-lg">📍 {{ shop.SHOP_ADDRESS }}</p>
-    <p class="text-lg">🌱 <b>{{ shop.Common_Name }}</b></p>
-    <p class="font-bold text-lg mt-2">💰 Rs.{{ shop.Average_Price }}</p>
-  </a>
-  
+    <!-- Pagination -->
+    <div *ngIf="showSearchResults && totalPages > 1" 
+         class="mt-8 flex justify-center gap-4">
+      <button (click)="prevPage()" 
+              [disabled]="currentPage === 1"
+              class="pagination-btn">
+        <span class="material-icons">chevron_left</span>
+      </button>
+      <button (click)="nextPage()" 
+              [disabled]="currentPage === totalPages"
+              class="pagination-btn">
+        <span class="material-icons">chevron_right</span>
+      </button>
+    </div>
   </div>
 </div>
 
-
-
-
-
-
-  <!-- Pagination Controls -->
-  <div *ngIf="showSearchResults && totalPages > 1" class="mt-6 flex gap-3">
-    <button (click)="prevPage()" [disabled]="currentPage === 1" 
-      class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50">
-      ◀ 
-    </button>
-    <button (click)="nextPage()" [disabled]="currentPage === totalPages" 
-      class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50">
-      ▶
-    </button>
-  </div>
-</div>
+<style>
+  .nav-link {
+    @apply flex items-center gap-2 text-gray-600 hover:text-green-600 transition-colors;
+  }
+  .pagination-btn {
+    @apply p-2 rounded-full bg-white shadow-md hover:bg-green-50 disabled:opacity-50 
+           disabled:hover:bg-white transition-colors;
+  }
+  .pattern-dots-lg {
+    background-size: 24px 24px;
+  }
+</style>

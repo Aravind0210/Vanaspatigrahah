@@ -1,10 +1,33 @@
 import { Routes } from '@angular/router';
-import { HomepageComponent } from './homepage/homepage.component';
-import { PlantDetailsComponent } from './plant-details/plant-details.component';
 
 export const routes: Routes = [
-  { path: '', component: HomepageComponent }, // Homepage (default route)
-  { path: 'plant-details', component: PlantDetailsComponent }, // Plant Details Page
-  { path: 'plant-details/:id', component: PlantDetailsComponent }, // Route with ID
-  { path: '**', redirectTo: '', pathMatch: 'full' } // Redirect unknown paths to homepage
+  { 
+    path: '', 
+    loadComponent: () => import('./homepage/homepage.component').then(c => c.HomepageComponent)
+  },
+  {
+    path: 'login', 
+    loadComponent: () => import('./login/login.component').then(c => c.LoginComponent)
+  },
+  {
+    path: 'fertilizer', 
+    loadComponent: () => import('./fertilizer/fertilizer.component').then(c => c.FertilizerComponent)
+  },
+  {
+    path: 'manure', 
+    loadComponent: () => import('./manure/manure.component').then(c => c.ManureComponent)
+  },
+  {
+    path: 'plant-details', 
+    loadComponent: () => import('./plant-details/plant-details.component').then(c => c.PlantDetailsComponent)
+  },
+  {
+    path: 'plant-details/:id', 
+    loadComponent: () => import('./plant-details/plant-details.component').then(c => c.PlantDetailsComponent)
+  },
+  { 
+    path: '**', 
+    redirectTo: '', 
+    pathMatch: 'full' 
+  }
 ];

@@ -32,17 +32,19 @@
           <div class="flex flex-col gap-4 mb-6">
             <div class="flex justify-between items-center">
               <p class="text-sm font-semibold text-emerald-600 bg-emerald-50 px-4 py-2 rounded-lg">
-                {{manure.shopName}}
+                {{manure.Name}}
               </p>
               <div class="bg-gradient-to-r from-emerald-500 to-blue-500 text-white px-5 py-2 
                           rounded-lg text-sm font-bold shadow-sm group-hover:scale-105 transition-transform">
-                {{manure.price | currency}}
+                RS. {{manure.Price_INR_kg}}  <!-- Displaying as string without currency formatting -->
               </div>
             </div>
             <h2 class="text-2xl font-bold text-gray-800 group-hover:text-emerald-600 transition-colors">
-              {{manure.name}}
+              {{manure.Usage_Instructions}}
             </h2>
-            <p class="text-gray-600 leading-relaxed">{{manure.description}}</p>
+            <p class="text-gray-600 leading-relaxed">{{manure.Composition}}</p>
+
+            <p class="text-gray-600 leading-relaxed">{{manure.Example_Plants}}</p>
           </div>
         </div>
       </div>

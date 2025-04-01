@@ -69,6 +69,27 @@ app.get('/api/fertilizers', async (req, res) => {
 
 
 
+app.get('/api/manure', async (req, res) => {
+  try {
+    await sql.connect(config);
+    const result = await sql.query('SELECT * FROM dbo.manuremaster');
+    res.json(result.recordset); // Send manure data as response
+  } catch (err) {
+    console.error('Error fetching manure data:', err);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+app.get('/api/pesticides', async (req, res) => {
+  try {
+    await sql.connect(config);
+    const result = await sql.query('SELECT * FROM dbo.pestiside');
+    res.json(result.recordset); // Send the pesticide data as response
+  } catch (err) {
+    console.error('Error fetching pesticide data:', err);
+    res.status(500).send('Internal Server Error');
+  }
+});
 
 
 app.get('/api/shopsby/:id', async (req, res) => {

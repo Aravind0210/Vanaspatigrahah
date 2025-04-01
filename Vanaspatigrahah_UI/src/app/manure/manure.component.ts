@@ -1,14 +1,16 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HeaderComponent } from "../header/header.component";
 
 interface Manure {
-  name: string;
-  shopName: string;
-  price: number;
-  description: string;
+  Name: string;
+  Composition: string;
+  Price_INR_kg: string;  // keeping it as string to match database type
+  Usage_Instructions: string;
+  Example_Plants: string;
 }
 
 @Component({
@@ -26,42 +28,36 @@ export class ManureComponent implements OnInit {
   currentImageIndex = 0;
   filterText = '';
 
-  manureProducts: Manure[] = [
-    {
-      name: 'Organic Compost',
-      shopName: 'Green Earth Supply',
-      price: 15.99,
-      description: 'Premium quality organic compost for healthy plant growth'
-    },
-    {
-      name: 'Cow Manure',
-      shopName: 'Farm Fresh',
-      price: 12.50,
-      description: 'Natural cow manure, aged and ready to use'
-    },
-    {
-      name: 'Vermicompost',
-      shopName: 'Earthworm Farms',
-      price: 24.99,
-      description: 'High-quality worm castings for superior plant nutrition'
-    }
-  ];
+  manureProducts: Manure[] = [];
 
-  constructor(private router: Router) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   ngOnInit() {
     setInterval(() => {
       this.currentImageIndex = (this.currentImageIndex + 1) % this.backgrounds.length;
     }, 5000);
+
+    this.fetchManureData();
+  }
+
+  fetchManureData() {
+    this.http.get<Manure[]>('http://localhost:3000/api/manure')
+      .subscribe(
+        (data) => {
+          this.manureProducts = data;
+        },
+        (error) => {
+          console.error('Error fetching manure data:', error);
+        }
+      );
   }
 
   get filteredManure(): Manure[] {
     return this.manureProducts.filter(manure =>
-      manure.shopName.toLowerCase().includes(this.filterText.toLowerCase())
+      manure.Name.toLowerCase().includes(this.filterText.toLowerCase()) ||
+      manure.Name.toLowerCase().includes(this.filterText.toLowerCase()) // You can filter by name or shop
     );
   }
 
-  navigateToLogin() {
-    this.router.navigate(['/login']);
-  }
+
 }

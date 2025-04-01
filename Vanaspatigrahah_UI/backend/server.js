@@ -17,7 +17,7 @@ const config = {
   user: 'sa',
   password: '20p256',
   server: 'LAPTOP-RVD8BNNA\\SQLEXPRESS',
-  database: 'cast_alloys',
+  database: 'vanaspatigrahah',
   options: {
     encrypt: false,
     trustServerCertificate: true,
@@ -28,6 +28,22 @@ pool.connect()
   .then(() => console.log('Connected to the database'))
   .catch(err => console.error('Error connecting to the database:', err));
 
+
+// API Endpoint to fetch shop details by name
+app.get("/api/shops", async (req, res) => {
+  try {
+    const { search } = req.query;
+    const result = await pool
+      .request()
+      .input("search", sql.NVarChar, search + '%')  // Use correct wildcard
+      .query(`SELECT * FROM mastervanasplants WHERE SHOP_NAME LIKE @search`);
+  
+    res.json(result.recordset);
+  } catch (error) {
+    console.error("Error fetching shops:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
 
 
 

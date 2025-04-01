@@ -14,6 +14,10 @@ export class DataService {
     return this.http.get<any[]>(`${this.apiUrl}/api/shops?search=${searchQuery}`);
   }
 
+  getFertilizers(searchTerm: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/api/fertilizers?search=${searchTerm}`);
+  }
+
   getPlantById(id: string): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/api/shopsby/${id}`);
   }

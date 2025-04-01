@@ -1,6 +1,8 @@
 import { Routes } from '@angular/router';
 import { PesticidesComponent } from './pesticides/pesticides.component';
 
+
+
 export const routes: Routes = [
   { 
     path: '', 

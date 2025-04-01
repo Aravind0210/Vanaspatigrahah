@@ -45,6 +45,25 @@ app.get("/api/shops", async (req, res) => {
   }
 });
 
+app.get("/api/fertilizers", async (req, res) => {
+  try {
+    const pool = await sql.connect(config);
+    const search = req.query.search ? `%${req.query.search}%` : "%";
+
+    const result = await pool
+      .request()
+      .input("search", sql.NVarChar, search)
+      .query(`SELECT * FROM MASTERFERTILIZER WHERE Name LIKE @search`);
+
+    res.json(result.recordset);
+  } catch (error) {
+    console.error("Error fetching fertilizers:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+
+
 app.get('/api/shopsby/:id', async (req, res) => {
   try {
     const { id } = req.params;

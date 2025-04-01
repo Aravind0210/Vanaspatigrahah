@@ -8,10 +8,12 @@ import { Router } from '@angular/router';
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
+
 })
 export class LoginComponent {
-  username: string = '';
-  password: string = '';
+  username: string = 'admin';
+  password: string = 'admin';
 
   constructor(private router: Router) {}
 

@@ -1,114 +1,110 @@
 <app-header></app-header>
 
-<div class="relative min-h-screen bg-gradient-to-br from-emerald-900 to-green-800" *ngIf="plant">
-  <!-- Decorative Elements -->
-  <div class="absolute inset-0 overflow-hidden">
-    <div class="absolute w-full h-full bg-[url('/assets/leaf-pattern.png')] opacity-5"></div>
-  </div>
-
+<div class="min-h-screen bg-gradient-to-br from-emerald-800 to-teal-900" *ngIf="plant">
   <!-- Main Content -->
-  <div class="relative z-10 container mx-auto px-4 py-16">
-    <div class="max-w-5xl mx-auto">
-      <!-- Plant Header -->
-      <div class="text-center mb-16 space-y-6">
-        <h1 class="text-7xl font-serif text-white opacity-90">{{ plant.name }}</h1>
-        <div class="inline-block px-8 py-3 bg-white/10 backdrop-blur-md rounded-full">
-          <p class="text-3xl font-light text-green-200">₹{{ plant.Average_Price }}</p>
+  <div class="container mx-auto px-4 py-12">
+    <!-- Header Section -->
+    <div class="text-center mb-16">
+      <h1 class="text-5xl font-bold text-emerald-50 mb-4">{{ plant.Common_Name }}</h1>
+      <div class="inline-flex items-center gap-4 px-6 py-2 bg-emerald-900/50 rounded-lg backdrop-blur-sm">
+        <div class="p-3 bg-green-500/10 rounded-lg">
+          <span class="text-2xl">💰</span>
+        </div>
+        <div>
+          <p class="text-green-400 text-sm">Average Price</p>
+          <p class="text-3xl font-light text-emerald-300">₹{{ plant.Average_Price }}</p>
         </div>
       </div>
+    </div>
 
-      <!-- Info Cards Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-        <div class="group hover:scale-105 transition-all duration-300">
-          <div class="h-full p-6 bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10 hover:border-green-300/30 transition-all">
-            <div class="flex items-center gap-4">
-              <span class="text-3xl">🌿</span>
-              <div>
-                <h3 class="text-green-200 text-sm uppercase tracking-wider">Tamil Name</h3>
-                <p class="text-white text-xl font-medium">{{ plant.Tamil_Name }}</p>
-              </div>
-            </div>
-          </div>
+    <!-- Info Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+      <!-- Cards with updated styling -->
+      <div class="bg-emerald-900/30 backdrop-blur-sm rounded-xl p-6 border border-emerald-700/50 hover:border-emerald-500/50 transition-all">
+      <div class="flex items-center gap-4">
+        <div class="p-3 bg-green-500/10 rounded-lg">
+        <span class="text-2xl">🌿</span>
         </div>
-
-        <div class="group hover:scale-105 transition-all duration-300">
-          <div class="h-full p-6 bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10 hover:border-green-300/30 transition-all">
-            <div class="flex items-center gap-4">
-              <span class="text-3xl">🏡</span>
-              <div>
-                <h3 class="text-green-200 text-sm uppercase tracking-wider">Family</h3>
-                <p class="text-white text-xl font-medium">{{ plant.Family }}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="group hover:scale-105 transition-all duration-300">
-          <div class="h-full p-6 bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10 hover:border-green-300/30 transition-all">
-            <div class="flex items-center gap-4">
-              <span class="text-3xl">🛒</span>
-              <div>
-                <h3 class="text-green-200 text-sm uppercase tracking-wider">Shop</h3>
-                <p class="text-white text-xl font-medium">{{ plant.SHOP_NAME }}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="group hover:scale-105 transition-all duration-300">
-          <div class="h-full p-6 bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10 hover:border-green-300/30 transition-all">
-            <div class="flex items-center gap-4">
-              <span class="text-3xl">📍</span>
-              <div>
-                <h3 class="text-green-200 text-sm uppercase tracking-wider">Location</h3>
-                <a [href]="'https://www.google.com/maps?q=' + plant.location" 
-                   target="_blank" 
-                   class="text-white text-xl font-medium hover:text-green-200 transition-colors">
-                  {{ plant.location }}
-                </a>
-              </div>
-            </div>
-          </div>
+        <div>
+        <p class="text-green-400 text-sm">Tamil Name</p>
+        <p class="text-white font-medium">{{ plant.Tamil_Name }}</p>
         </div>
       </div>
+      </div>
 
-      <!-- Tabs Section -->
-      <div class="space-y-8">
-        <div class="flex flex-wrap justify-center gap-4">
-          <button *ngFor="let tab of tabs" 
-                  (click)="selectTab(tab)"
-                  [ngClass]="{'bg-green-400 text-green-900 ring-2 ring-green-400 ring-offset-2 ring-offset-transparent': selectedTab === tab,
-                             'bg-white/5 text-white hover:bg-white/10': selectedTab !== tab}"
-                  class="px-8 py-3 rounded-full text-sm font-medium transition-all duration-300">
-            {{ tab }}
-          </button>
+      <div class="bg-emerald-900/30 backdrop-blur-sm rounded-xl p-6 border border-emerald-700/50 hover:border-emerald-500/50 transition-all">
+      <div class="flex items-center gap-4">
+        <div class="p-3 bg-green-500/10 rounded-lg">
+        <span class="text-2xl">🏡</span>
         </div>
+        <div>
+        <p class="text-green-400 text-sm">Family</p>
+        <p class="text-white font-medium">{{ plant.Family }}</p>
+        </div>
+      </div>
+      </div>
 
-        <div class="transition-all duration-500">
-          <div class="bg-white/5 backdrop-blur-xl p-8 rounded-3xl border border-white/10">
-            <p *ngIf="selectedTab === 'Growth & Maintenance Methods'" 
-               class="text-white/90 leading-relaxed text-lg animate-fade-in">
-              {{ plant.Growth_Maintenance_Methods }}
-            </p>
-            <p *ngIf="selectedTab === 'Common Diseases'" 
-               class="text-white/90 leading-relaxed text-lg animate-fade-in">
-              {{ plant.Common_Diseases }}
-            </p>
-            <p *ngIf="selectedTab === 'Disease Control'" 
-               class="text-white/90 leading-relaxed text-lg animate-fade-in">
-              {{ plant.Disease_Control_Methods }}
-            </p>
-            <p *ngIf="selectedTab === 'Uses of Plants'" 
-               class="text-white/90 leading-relaxed text-lg animate-fade-in">
-              {{ plant.Uses_of_Plants }}
-            </p>
-            <p *ngIf="selectedTab === 'Irrigation Requirements and Equipment'" 
-               class="text-white/90 leading-relaxed text-lg animate-fade-in">
-              {{ plant.Irrigation_Requirements_and_Equipment }}
-            </p>
-          </div>
+      <div class="bg-emerald-900/30 backdrop-blur-sm rounded-xl p-6 border border-emerald-700/50 hover:border-emerald-500/50 transition-all">
+      <div class="flex items-center gap-4">
+        <div class="p-3 bg-green-500/10 rounded-lg">
+        <span class="text-2xl">🛒</span>
+        </div>
+        <div>
+        <p class="text-green-400 text-sm">Shop</p>
+        <p class="text-white font-medium">{{ plant.SHOP_NAME }}</p>
+        </div>
+      </div>
+      </div>
+
+      <div class="bg-emerald-900/30 backdrop-blur-sm rounded-xl p-6 border border-emerald-700/50 hover:border-emerald-500/50 transition-all">
+      <div class="flex items-center gap-4">
+        <div class="p-3 bg-green-500/10 rounded-lg">
+        <span class="text-2xl">📍</span>
+        </div>
+        <div>
+        <p class="text-green-400 text-sm">Location</p>
+        <a [href]="plant.location" 
+           target="_blank" 
+           class="text-white font-medium break-all hover:text-green-400 transition-colors">
+          {{ plant.location }}
+        </a>
+        </div>
+      </div>
+      </div>
+    </div>
+
+    <!-- Tabs Section -->
+    <div class="bg-emerald-900/30 backdrop-blur-sm rounded-2xl border border-emerald-700/50 p-8">
+      <div class="flex flex-wrap gap-2 mb-8">
+        <button *ngFor="let tab of tabs" 
+                (click)="selectTab(tab)"
+                [ngClass]="{'bg-emerald-500 text-white': selectedTab === tab,
+                           'bg-emerald-900/50 text-emerald-100 hover:bg-emerald-800/50': selectedTab !== tab}"
+                class="px-5 py-2 rounded-lg text-sm font-medium transition-all">
+          {{ tab }}
+        </button>
+      </div>
+
+      <div class="prose prose-invert max-w-none">
+        <div [ngSwitch]="selectedTab" class="text-emerald-50 leading-relaxed">
+          <p *ngSwitchCase="'Growth & Maintenance Methods'" class="animate-fade">
+            {{ plant.Growth_Maintenance_Methods }}
+          </p>
+          <p *ngSwitchCase="'Common Diseases'" class="animate-fade">
+            {{ plant.Common_Diseases }}
+          </p>
+          <p *ngSwitchCase="'Disease Control'" class="animate-fade">
+            {{ plant.Disease_Control_Methods }}
+          </p>
+          <p *ngSwitchCase="'Uses of Plants'" class="animate-fade">
+            {{ plant.Uses_of_Plants }}
+          </p>
+          <p *ngSwitchCase="'Irrigation Requirements and Equipment'" class="animate-fade">
+            {{ plant.Irrigation_Requirements_and_Equipment }}
+          </p>
         </div>
       </div>
     </div>
   </div>
 </div>
+

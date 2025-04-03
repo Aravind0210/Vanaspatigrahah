@@ -41,6 +41,7 @@
              class="w-full px-6 py-4 rounded-xl border-2 border-emerald-100 focus:border-emerald-400 
                     focus:outline-none bg-white/90 backdrop-blur-sm pl-14 text-lg shadow-sm">
       <span class="material-icons absolute left-4 top-1/2 -translate-y-1/2 text-emerald-400 text-2xl">search</span>
+    </div>
   </div>
 
   <!-- Display Search Results -->
@@ -87,33 +88,22 @@
 
     <div
       *ngIf="showSearchResults && totalPages > 1"
-      class="mt-8 flex justify-center items-center gap-2 mb-8"
+      class="mt-8 flex justify-center gap-4"
     >
       <button
         (click)="prevPage()"
-        class="pagination-btn"
         [disabled]="currentPage === 1"
+        class="pagination-btn"
       >
         <span class="material-icons">chevron_left</span>
       </button>
-
-      <button
-        *ngFor="let page of getVisiblePages()"
-        (click)="goToPage(page)"
-        class="pagination-btn min-w-[40px]"
-        [class.active]="page === currentPage"
-      >
-        {{ page }}
-      </button>
-
       <button
         (click)="nextPage()"
-        class="pagination-btn"
         [disabled]="currentPage === totalPages"
+        class="pagination-btn"
       >
         <span class="material-icons">chevron_right</span>
       </button>
     </div>
   </div>
-</div>
 

@@ -15,7 +15,7 @@ import { HeaderComponent } from "../header/header.component";  // ✅ Import thi
 })
 export class PlantDetailsComponent implements OnInit {
   plant: any;
-  tabs = ['Growth & Maintenance Methods', 'Common Diseases', 'Disease Control', 'Uses of Plants', 'Irrigation Requirements and Equipment'];
+  tabs = ['Growth & Maintenance Methods', 'Common Diseases', 'Disease Control', 'Uses of Plants', 'Irrigation Requirements and Equipment', 'Irrigation Frequency', 'Profit Margin After Maturity', 'Fertilizer Recommendation', 'Pesticide Recommendation'];
   selectedTab = this.tabs[0];
 
   constructor(private route: ActivatedRoute, private dataService: DataService) {}

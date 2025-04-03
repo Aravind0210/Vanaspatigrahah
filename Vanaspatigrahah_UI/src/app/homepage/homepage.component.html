@@ -88,21 +88,15 @@
 
     <div
       *ngIf="showSearchResults && totalPages > 1"
-      class="mt-8 flex justify-center gap-4"
+      class="mt-8 flex justify-center gap-2"
     >
       <button
-        (click)="prevPage()"
-        [disabled]="currentPage === 1"
+        *ngFor="let page of pages"
+        (click)="goToPage(page)"
+        [class.active]="page === currentPage"
         class="pagination-btn"
       >
-        <span class="material-icons">chevron_left</span>
-      </button>
-      <button
-        (click)="nextPage()"
-        [disabled]="currentPage === totalPages"
-        class="pagination-btn"
-      >
-        <span class="material-icons">chevron_right</span>
+        {{ page }}
       </button>
     </div>
   </div>

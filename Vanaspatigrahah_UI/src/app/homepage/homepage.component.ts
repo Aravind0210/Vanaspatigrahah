@@ -16,6 +16,7 @@ export class HomepageComponent implements OnInit {
   showSearchResults = false;
   shops: any[] = [];
   paginatedShops: any[] = [];
+  pages: number[] = [];
   currentPage = 1;
   itemsPerPage = 6;
   backgrounds = [
@@ -58,6 +59,7 @@ export class HomepageComponent implements OnInit {
   updatePagination() {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     this.paginatedShops = this.shops.slice(startIndex, startIndex + this.itemsPerPage);
+    this.pages = Array.from({ length: this.totalPages }, (_, i) => i + 1);
   }
 
   nextPage() {
@@ -72,6 +74,11 @@ export class HomepageComponent implements OnInit {
       this.currentPage--;
       this.updatePagination();
     }
+  }
+
+  goToPage(page: number) {
+    this.currentPage = page;
+    this.updatePagination();
   }
 
   get totalPages() {

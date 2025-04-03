@@ -86,24 +86,21 @@
 
 
 
-    <div
-      *ngIf="showSearchResults && totalPages > 1"
-      class="mt-8 flex justify-center gap-4"
-    >
-      <button
-        (click)="prevPage()"
-        [disabled]="currentPage === 1"
-        class="pagination-btn"
-      >
-        <span class="material-icons">chevron_left</span>
-      </button>
-      <button
-        (click)="nextPage()"
-        [disabled]="currentPage === totalPages"
-        class="pagination-btn"
-      >
-        <span class="material-icons">chevron_right</span>
-      </button>
-    </div>
+<div *ngIf="showSearchResults">
+  <div *ngFor="let shop of paginatedShops" class="shop-card">
+    <p>{{ shop.name }}</p>
   </div>
+
+  <!-- Pagination Controls -->
+  <div *ngIf="totalPages > 1" class="mt-8 flex justify-center gap-4">
+    <button (click)="prevPage()" [disabled]="currentPage === 1" class="pagination-btn">
+      <span class="material-icons">chevron_left</span>
+    </button>
+    <span>Page {{ currentPage }} of {{ totalPages }}</span>
+    <button (click)="nextPage()" [disabled]="currentPage === totalPages" class="pagination-btn">
+      <span class="material-icons">chevron_right</span>
+    </button>
+  </div>
+</div>
+
 

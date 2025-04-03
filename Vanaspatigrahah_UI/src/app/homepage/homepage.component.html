@@ -88,15 +88,45 @@
 
     <div
       *ngIf="showSearchResults && totalPages > 1"
-      class="mt-8 flex justify-center gap-2"
+      class="mt-8 flex justify-center items-center gap-2 mb-8"
     >
       <button
-        *ngFor="let page of pages"
-        (click)="goToPage(page)"
-        [class.active]="page === currentPage"
-        class="pagination-btn px-4 py-2 rounded-lg border border-emerald-300 text-emerald-700 hover:bg-emerald-100 transition-colors"
+        (click)="goToPage(1)"
+        class="pagination-btn"
+        [class.active]="currentPage === 1"
       >
-        {{ page }}
+        First
+      </button>
+      <button
+        (click)="prevPage()"
+        class="pagination-btn"
+        [disabled]="currentPage === 1"
+      >
+        <span class="material-icons">chevron_left</span>
+      </button>
+      <div class="flex gap-2">
+        <button
+          *ngFor="let page of pages"
+          (click)="goToPage(page)"
+          [class.active]="page === currentPage"
+          class="pagination-btn min-w-[40px]"
+        >
+          {{ page }}
+        </button>
+      </div>
+      <button
+        (click)="nextPage()"
+        class="pagination-btn"
+        [disabled]="currentPage === totalPages"
+      >
+        <span class="material-icons">chevron_right</span>
+      </button>
+      <button
+        (click)="goToPage(totalPages)"
+        class="pagination-btn"
+        [class.active]="currentPage === totalPages"
+      >
+        Last
       </button>
     </div>
   </div>

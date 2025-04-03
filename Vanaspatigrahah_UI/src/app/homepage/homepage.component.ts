@@ -57,9 +57,28 @@ export class HomepageComponent implements OnInit {
   
 
   updatePagination() {
+    // Calculate start and end index
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    this.paginatedShops = this.shops.slice(startIndex, startIndex + this.itemsPerPage);
-    this.pages = Array.from({ length: this.totalPages }, (_, i) => i + 1);
+    const endIndex = Math.min(startIndex + this.itemsPerPage, this.shops.length);
+    
+    // Update paginated shops
+    this.paginatedShops = this.shops.slice(startIndex, endIndex);
+    
+    // Generate page numbers
+    const totalPages = Math.ceil(this.shops.length / this.itemsPerPage);
+    this.pages = Array.from({length: totalPages}, (_, i) => i + 1);
+    
+    // Ensure current page is valid
+    if (this.currentPage > totalPages) {
+      this.currentPage = totalPages;
+    }
+
+    // Log for debugging
+    console.log('Current Page:', this.currentPage);
+    console.log('Total Items:', this.shops.length);
+    console.log('Items per Page:', this.itemsPerPage);
+    console.log('Total Pages:', totalPages);
+    console.log('Paginated Items:', this.paginatedShops.length);
   }
 
   nextPage() {
@@ -77,9 +96,12 @@ export class HomepageComponent implements OnInit {
   }
 
   goToPage(page: number) {
+    console.log('Navigating to page:', page);
     if (page >= 1 && page <= this.totalPages) {
       this.currentPage = page;
       this.updatePagination();
+      // Scroll to top of results
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   }
 

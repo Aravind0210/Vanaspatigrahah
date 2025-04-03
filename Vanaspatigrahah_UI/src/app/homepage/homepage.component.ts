@@ -18,7 +18,7 @@ export class HomepageComponent implements OnInit {
   paginatedShops: any[] = [];
   pages: number[] = [];
   currentPage = 1;
-  itemsPerPage = 6;
+  itemsPerPage = 12;
   backgrounds = [
     'https://images.unsplash.com/photo-1524247108137-732e0f642303?w=600&auto=format&fit=crop&q=60',
     'https://plus.unsplash.com/premium_photo-1679765926730-78765a8b7802?w=600&auto=format&fit=crop&q=60'
@@ -77,8 +77,10 @@ export class HomepageComponent implements OnInit {
   }
 
   goToPage(page: number) {
-    this.currentPage = page;
-    this.updatePagination();
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+      this.updatePagination();
+    }
   }
 
   get totalPages() {

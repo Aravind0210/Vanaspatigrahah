@@ -113,4 +113,38 @@ export class HomepageComponent implements OnInit {
     this.searchQuery = query;
     this.showResults();
   }
+
+  getPageRange(): (number | string)[] {
+    const range: (number | string)[] = [];
+    const maxPagesToShow = 5;
+    
+    if (this.totalPages <= maxPagesToShow) {
+      for (let i = 1; i <= this.totalPages; i++) {
+        range.push(i);
+      }
+    } else {
+      if (this.currentPage <= 3) {
+        for (let i = 1; i <= 4; i++) {
+          range.push(i);
+        }
+        range.push('...');
+        range.push(this.totalPages);
+      } else if (this.currentPage >= this.totalPages - 2) {
+        range.push(1);
+        range.push('...');
+        for (let i = this.totalPages - 3; i <= this.totalPages; i++) {
+          range.push(i);
+        }
+      } else {
+        range.push(1);
+        range.push('...');
+        range.push(this.currentPage - 1);
+        range.push(this.currentPage);
+        range.push(this.currentPage + 1);
+        range.push('...');
+        range.push(this.totalPages);
+      }
+    }
+    return range;
+  }
 }

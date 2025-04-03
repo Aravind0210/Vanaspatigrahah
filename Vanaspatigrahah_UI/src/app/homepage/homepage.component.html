@@ -41,7 +41,6 @@
              class="w-full px-6 py-4 rounded-xl border-2 border-emerald-100 focus:border-emerald-400 
                     focus:outline-none bg-white/90 backdrop-blur-sm pl-14 text-lg shadow-sm">
       <span class="material-icons absolute left-4 top-1/2 -translate-y-1/2 text-emerald-400 text-2xl">search</span>
-    </div>
   </div>
 
   <!-- Display Search Results -->
@@ -93,9 +92,9 @@
       <button
         (click)="goToPage(1)"
         class="pagination-btn"
-        [class.active]="currentPage === 1"
+        [disabled]="currentPage === 1"
       >
-        First
+        <span class="material-icons">first_page</span>
       </button>
       <button
         (click)="prevPage()"
@@ -104,16 +103,19 @@
       >
         <span class="material-icons">chevron_left</span>
       </button>
-      <div class="flex gap-2">
+
+      <ng-container *ngFor="let page of getPageRange()">
+        <span *ngIf="page === '...'" class="px-2">...</span>
         <button
-          *ngFor="let page of pages"
-          (click)="goToPage(page)"
-          [class.active]="page === currentPage"
+          *ngIf="page !== '...'"
+          (click)="typeof page === 'number' && goToPage(page)"
           class="pagination-btn min-w-[40px]"
+          [class.active]="page === currentPage"
         >
           {{ page }}
         </button>
-      </div>
+      </ng-container>
+
       <button
         (click)="nextPage()"
         class="pagination-btn"
@@ -124,10 +126,11 @@
       <button
         (click)="goToPage(totalPages)"
         class="pagination-btn"
-        [class.active]="currentPage === totalPages"
+        [disabled]="currentPage === totalPages"
       >
-        Last
+        <span class="material-icons">last_page</span>
       </button>
     </div>
   </div>
+</div>
 

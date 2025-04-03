@@ -90,13 +90,6 @@
       class="mt-8 flex justify-center items-center gap-2 mb-8"
     >
       <button
-        (click)="goToPage(1)"
-        class="pagination-btn"
-        [disabled]="currentPage === 1"
-      >
-        <span class="material-icons">first_page</span>
-      </button>
-      <button
         (click)="prevPage()"
         class="pagination-btn"
         [disabled]="currentPage === 1"
@@ -104,17 +97,14 @@
         <span class="material-icons">chevron_left</span>
       </button>
 
-      <ng-container *ngFor="let page of getPageRange()">
-        <span *ngIf="page === '...'" class="px-2">...</span>
-        <button
-          *ngIf="page !== '...'"
-          (click)="typeof page === 'number' && goToPage(page)"
-          class="pagination-btn min-w-[40px]"
-          [class.active]="page === currentPage"
-        >
-          {{ page }}
-        </button>
-      </ng-container>
+      <button
+        *ngFor="let page of getVisiblePages()"
+        (click)="goToPage(page)"
+        class="pagination-btn min-w-[40px]"
+        [class.active]="page === currentPage"
+      >
+        {{ page }}
+      </button>
 
       <button
         (click)="nextPage()"
@@ -122,13 +112,6 @@
         [disabled]="currentPage === totalPages"
       >
         <span class="material-icons">chevron_right</span>
-      </button>
-      <button
-        (click)="goToPage(totalPages)"
-        class="pagination-btn"
-        [disabled]="currentPage === totalPages"
-      >
-        <span class="material-icons">last_page</span>
       </button>
     </div>
   </div>

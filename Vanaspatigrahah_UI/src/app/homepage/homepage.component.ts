@@ -57,34 +57,20 @@ export class HomepageComponent implements OnInit {
   
 
   updatePagination() {
-    // Calculate start and end index
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    const endIndex = Math.min(startIndex + this.itemsPerPage, this.shops.length);
-    
-    // Update paginated shops
+    const endIndex = startIndex + this.itemsPerPage;
     this.paginatedShops = this.shops.slice(startIndex, endIndex);
-    
-    // Generate page numbers
-    const totalPages = Math.ceil(this.shops.length / this.itemsPerPage);
-    this.pages = Array.from({length: totalPages}, (_, i) => i + 1);
-    
-    // Ensure current page is valid
-    if (this.currentPage > totalPages) {
-      this.currentPage = totalPages;
-    }
+  }
 
-    // Log for debugging
-    console.log('Current Page:', this.currentPage);
-    console.log('Total Items:', this.shops.length);
-    console.log('Items per Page:', this.itemsPerPage);
-    console.log('Total Pages:', totalPages);
-    console.log('Paginated Items:', this.paginatedShops.length);
+  get totalPages(): number {
+    return Math.ceil(this.shops.length / this.itemsPerPage);
   }
 
   nextPage() {
     if (this.currentPage < this.totalPages) {
       this.currentPage++;
       this.updatePagination();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   }
 
@@ -92,21 +78,33 @@ export class HomepageComponent implements OnInit {
     if (this.currentPage > 1) {
       this.currentPage--;
       this.updatePagination();
-    }
-  }
-
-  goToPage(page: number) {
-    console.log('Navigating to page:', page);
-    if (page >= 1 && page <= this.totalPages) {
-      this.currentPage = page;
-      this.updatePagination();
-      // Scroll to top of results
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   }
 
-  get totalPages() {
-    return Math.ceil(this.shops.length / this.itemsPerPage);
+  goToPage(page: number) {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+      this.updatePagination();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }
+
+  getVisiblePages(): number[] {
+    const pages: number[] = [];
+    const maxVisible = 5;
+    let start = Math.max(1, this.currentPage - Math.floor(maxVisible / 2));
+    let end = Math.min(this.totalPages, start + maxVisible - 1);
+    
+    if (end - start + 1 < maxVisible) {
+      start = Math.max(1, end - maxVisible + 1);
+    }
+    
+    for (let i = start; i <= end; i++) {
+      pages.push(i);
+    }
+    
+    return pages;
   }
 
   onHeaderSearch(query: string) {

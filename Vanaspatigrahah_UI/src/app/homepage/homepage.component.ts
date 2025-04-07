@@ -26,7 +26,17 @@ export class HomepageComponent implements OnInit {
 
   ngOnInit() {
     this.startBackgroundRotation();
+  
+    const savedQuery = localStorage.getItem('searchQuery');
+    const savedResults = localStorage.getItem('searchResults');
+  
+    if (savedQuery && savedResults) {
+      this.searchQuery = savedQuery;
+      this.shops = JSON.parse(savedResults);
+      this.showSearchResults = this.shops.length > 0;
+    }
   }
+  
 
   startBackgroundRotation() {
     setInterval(() => {
@@ -40,6 +50,11 @@ export class HomepageComponent implements OnInit {
         next: (data) => {
           this.shops = data;
           this.showSearchResults = this.shops.length > 0;
+  
+          // Save to localStorage
+          localStorage.setItem('searchQuery', this.searchQuery);
+          localStorage.setItem('searchResults', JSON.stringify(this.shops));
+  
           console.log("Shops Loaded:", this.shops);
         },
         error: (error) => {
@@ -48,9 +63,11 @@ export class HomepageComponent implements OnInit {
       });
     } else {
       this.showSearchResults = false;
+      localStorage.removeItem('searchQuery');
+      localStorage.removeItem('searchResults');
     }
   }
-
+  
   onHeaderSearch(query: string) {
     this.searchQuery = query;
     this.showResults();

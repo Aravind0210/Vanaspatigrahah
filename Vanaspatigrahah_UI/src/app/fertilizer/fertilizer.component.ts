@@ -45,9 +45,11 @@ export class FertilizerComponent implements OnInit {
 
   // Trigger the search when user types
   onSearch() {
-    // Filter the fertilizers based on the search term
+    const searchText = this.filterText.toLowerCase();
     this.fertilizers = this.allFertilizers.filter(fertilizer =>
-      fertilizer.Name.toLowerCase().includes(this.filterText.toLowerCase())
+      (fertilizer.Name && fertilizer.Name.toLowerCase().includes(searchText)) ||
+      (fertilizer.SHOP_NAME && fertilizer.SHOP_NAME.toLowerCase().includes(searchText))
     );
   }
+  
 }

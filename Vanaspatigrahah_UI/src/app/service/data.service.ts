@@ -16,7 +16,7 @@ export class DataService {
 
   getFertilizers(searchTerm: string): Observable<any[]> {
     let params = new HttpParams().set('search', searchTerm);
-    return this.http.get<any[]>(`${this.apiUrl}/api/fertilizers`, { params });
+    return this.http.get<any[]>(`${this.apiUrl}/api/mfps`, { params });
   }
   
 

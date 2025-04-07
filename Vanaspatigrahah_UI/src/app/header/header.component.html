@@ -6,16 +6,26 @@
     </h1>
 
     <!-- Navigation -->
-    <nav class="hidden md:flex space-x-8 left-[27rem] relative">
+    <nav class="hidden md:flex space-x-8 left-80 relative">
       <a routerLink="/" routerLinkActive="text-green-600" [routerLinkActiveOptions]="{exact: true}" class="nav-link">
       <span class="material-icons-outlined relative top-[6px]">local_florist</span>
       Plants
       </a>
-      <a routerLink="/fertilizer" routerLinkActive="text-green-600" class="nav-link">
-      <span class="material-icons-outlined relative top-[6px]">eco</span>
-      CropCare Essentials
+      <a routerLink="/fertilizer" [queryParams]="{ type: 'fertilizer' }" queryParamsHandling="merge" 
+         routerLinkActive="text-green-600" class="nav-link">
+        <span class="material-icons-outlined relative top-[6px]">spa</span>
+        Fertilizer
       </a>
-      
+      <a routerLink="/fertilizer" [queryParams]="{ type: 'manure' }" queryParamsHandling="merge" 
+         routerLinkActive="text-green-600" class="nav-link">
+        <span class="material-icons-outlined relative top-[6px]">eco</span>
+        Manure
+      </a>
+      <a routerLink="/fertilizer" [queryParams]="{ type: 'pesticides' }" queryParamsHandling="merge" 
+         routerLinkActive="text-green-600" class="nav-link">
+        <span class="material-icons-outlined relative top-[6px]">bug_report</span>
+        Pesticides
+      </a>
     </nav>
 
    

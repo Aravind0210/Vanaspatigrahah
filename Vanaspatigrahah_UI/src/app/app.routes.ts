@@ -15,10 +15,10 @@ export const routes: Routes = [
     path: 'fertilizer', 
     loadComponent: () => import('./fertilizer/fertilizer.component').then(c => c.FertilizerComponent)
   },
-  {
-    path: 'manure', 
-    loadComponent: () => import('./manure/manure.component').then(c => c.ManureComponent)
-  },
+  // {
+  //   path: 'manure', 
+  //   loadComponent: () => import('./manure/manure.component').then(c => c.ManureComponent)
+  // },
   {
     path: 'plant-details', 
     loadComponent: () => import('./plant-details/plant-details.component').then(c => c.PlantDetailsComponent)
@@ -32,10 +32,10 @@ export const routes: Routes = [
     path: 'addshop',
     loadComponent: () => import('./addshop/addshop.component').then(c => c.AddShopComponent)
   },
-  {
-    path: 'pesticides',
-    loadComponent: () => import('./pesticides/pesticides.component').then(c => c.PesticidesComponent)
-  },
+  // {
+  //   path: 'pesticides',
+  //   loadComponent: () => import('./pesticides/pesticides.component').then(c => c.PesticidesComponent)
+  // },
   { 
     path: '**', 
     redirectTo: '', 

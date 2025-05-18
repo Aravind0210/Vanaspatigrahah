@@ -1,0 +1,63 @@
+<div class="min-h-screen bg-gray-50 font-sans">
+
+  <!-- Header -->
+  <header class="bg-white shadow p-4 flex items-center justify-between">
+    <div class="flex items-center space-x-3">
+      <img src="https://via.placeholder.com/50" alt="Logo" class="w-10 h-10 rounded-full" />
+      <h1 class="text-2xl font-bold text-gray-800">Smart Weigh Billing</h1>
+    </div>
+    <div class="flex items-center gap-4">
+      <span class="text-sm text-gray-600">{{ currentDateTime }}</span>
+      <button class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700">Login</button>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="max-w-5xl mx-auto p-6 mt-6 bg-white rounded-lg shadow">
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+      <!-- Input Section -->
+      <section>
+        <h2 class="text-xl font-semibold mb-4 text-gray-700">Enter Details (in grams)</h2>
+        <div class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Weight (g)</label>
+            <input [(ngModel)]="weight" type="number" class="mt-1 w-full p-2 border rounded bg-red-100" placeholder="E.g. 1000" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Less Weight (g)</label>
+            <input [(ngModel)]="lessWeight" type="number" class="mt-1 w-full p-2 border rounded bg-yellow-100" placeholder="E.g. 200" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Rate (per gram)</label>
+            <input [(ngModel)]="rate" type="number" class="mt-1 w-full p-2 border rounded bg-green-100" placeholder="E.g. 1.5" />
+          </div>
+          <button (click)="generateAndSendBill()" class="mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded">
+            Generate Bill & Save
+          </button>
+          <p class="mt-2 text-center text-sm text-gray-600">{{ statusMessage }}</p>
+        </div>
+      </section>
+
+      <!-- Summary Section -->
+      <section class="bg-gray-100 p-5 rounded-lg border">
+        <h2 class="text-xl font-semibold mb-4 text-gray-700">Billing Summary</h2>
+        <div class="space-y-3 text-gray-700 text-sm">
+          <p><strong>Date & Time:</strong> {{ billDateTime || '-' }}</p>
+          <hr class="my-2">
+          <p><strong>Total Weight:</strong> {{ weight || 0 }} g</p>
+          <p><strong>Less Weight:</strong> {{ lessWeight || 0 }} g</p>
+          <p><strong>Net Weight:</strong> {{ netWeight || 0 }} g</p>
+          <p class="text-lg font-semibold"><strong>Total Amount:</strong> ₹{{ totalAmount.toFixed(2) }}</p>
+        </div>
+        <div class="mt-6 text-right">
+          <button (click)="printBill()" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded">
+            Print Bill
+          </button>
+        </div>
+      </section>
+
+    </div>
+  </main>
+</div>

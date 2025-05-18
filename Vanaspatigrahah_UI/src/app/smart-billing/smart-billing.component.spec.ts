@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HeaderComponent } from './header.component';
+import { SmartBillingComponent } from './smart-billing.component';
 
-describe('HeaderComponent', () => {
-  let component: HeaderComponent;
-  let fixture: ComponentFixture<HeaderComponent>;
+describe('SmartBillingComponent', () => {
+  let component: SmartBillingComponent;
+  let fixture: ComponentFixture<SmartBillingComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HeaderComponent]
+      imports: [SmartBillingComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(HeaderComponent);
+    fixture = TestBed.createComponent(SmartBillingComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

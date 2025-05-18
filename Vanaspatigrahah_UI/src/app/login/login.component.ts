@@ -21,7 +21,7 @@ export class LoginComponent {
   onSubmit() {
     if (this.enteredUsername.trim().toLowerCase() === 'admin' && this.enteredPassword === 'admin') {
       console.log('Login successful');
-      this.router.navigate(['/addshop']);
+      this.router.navigate(['/billing-summary']);
     } else {
       alert('Invalid username or password. Please try again.');
     }

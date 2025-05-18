@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-smart-billing',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,FormsModule,RouterLink],
   templateUrl: './smart-billing.component.html',
   styleUrls: ['./smart-billing.component.css']
 })

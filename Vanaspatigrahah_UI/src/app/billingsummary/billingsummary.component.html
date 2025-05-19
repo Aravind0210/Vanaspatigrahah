@@ -44,24 +44,26 @@
     </table>
 
     <!-- Summary -->
-    <div class="bg-gray-50 p-6 rounded border border-gray-300 text-gray-700 font-semibold shadow-inner">
-      <div class="flex justify-between text-xl mb-2">
-        <span class="text-red-600">Total Wt:  gm</span>
-        <span class="text-green-700">Total Rs: </span>
-      </div>
-      <div class="text-center text-blue-700 font-bold text-2xl mb-1">
-        Avg. Rate 1 gm:  Rs/gm
-      </div>
-      <div class="text-center text-red-600 font-semibold text-lg">
-        Total Less Wt: gm
-      </div>
-    </div>
+<div class="bg-gray-50 p-6 rounded border border-gray-300 text-gray-700 font-semibold shadow-inner">
+  <div class="flex justify-between text-xl mb-2">
+    <span class="text-red-600">Total Wt: {{ totalWeight.toFixed(2) }} gm</span>
+    <span class="text-green-700">Total Rs: ₹{{ totalAmount.toFixed(2) }}</span>
+  </div>
+  <div class="text-center text-blue-700 font-bold text-2xl mb-1">
+    Avg. Rate 1 gm: ₹{{ avgRate.toFixed(2) }}/gm
+  </div>
+  <div class="text-center text-red-600 font-semibold text-lg">
+    Total Less Wt: {{ totalLessWeight.toFixed(2) }} gm
+  </div>
+</div>
+
 
     <!-- Buttons -->
     <div class="mt-6 flex justify-end gap-3">
-      <button  class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-4 py-2 rounded">
-        Export to CSV
-      </button>
+<button (click)="exportToExcel()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-4 py-2 rounded">
+  Export to EXCEL
+</button>
+
     </div>
   </div>
 </div>

@@ -14,6 +14,7 @@ export class SmartBillingComponent {
   weight: number = 0;
   lessWeight: number = 0;
   rate: number = 0;
+phoneNumber: string = '';
 
   netWeight: number = 0;
   totalAmount: number = 0;
@@ -26,6 +27,15 @@ export class SmartBillingComponent {
       this.currentDateTime = new Date().toLocaleString();
     }, 1000);
   }
+
+handleGenerateAndSave() {
+  const billData = this.calculate(); // generate once
+
+  this.generateAndSendBill();        // send to fake API
+  this.generateAndSendBilltoinsert(); // send to backend
+  this.sendWhatsAppMessage(billData);         // send to WhatsApp
+}
+
 
     generateAndSendBilltoinsert() {
     this.statusMessage = 'Saving bill...';
@@ -40,6 +50,27 @@ export class SmartBillingComponent {
       }
     });
   }
+
+sendWhatsAppMessage(billData: any) {
+  const phoneNumber = this.phoneNumber?.trim();
+  if (!phoneNumber || phoneNumber.length < 10) {
+    this.statusMessage = 'Please enter a valid phone number with country code.';
+    return;
+  }
+
+  const message = `🧾 *Gold Bill*\n\n` +
+                  `Weight: ${billData.weight}g\n` +
+                  `Less Weight: ${billData.lessWeight}g\n` +
+                  `Net Weight: ${billData.netWeight}g\n` +
+                  `Rate: ₹${billData.rate}\n` +
+                  `Total Amount: ₹${billData.totalAmount}\n\n` +
+                  `🗓 Date: ${this.currentDateTime}`;
+
+  const encodedMessage = encodeURIComponent(message);
+  const url = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+
+  window.open(url, '_blank');
+}
 
   calculate() {
     const net = Math.max(0, this.weight - this.lessWeight);

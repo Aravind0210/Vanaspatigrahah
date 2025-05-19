@@ -4,6 +4,8 @@
     <img src="https://via.placeholder.com/60" alt="Company Logo" class="h-14 w-14 rounded-md mr-4" />
     <h1 class="text-3xl font-extrabold tracking-wide">Your Company Name</h1>
   </header>
+
+
   
 
   <div class="w-full max-w-4xl bg-white shadow-lg rounded-lg p-6">
@@ -18,6 +20,75 @@
       </h2>
       <p class="text-gray-500 mt-1">Manage and review the billing entries below</p>
     </div>
+
+<div class="w-full flex flex-wrap items-center gap-4 md:gap-[8.5rem] mb-6">
+
+  <!-- From Date -->
+  <div class="relative w-full sm:w-auto">
+    <!-- Native Date Input (Transparent) -->
+    <input
+      #fromDateInput
+      type="date"
+      [(ngModel)]="fromDate"
+      class="absolute inset-0 w-full sm:w-56 opacity-0 z-10 cursor-pointer"
+    />
+
+    <!-- Fake Styled Input -->
+    <div
+      class="w-full sm:w-56 border border-gray-300 rounded-md py-2 pl-4 pr-12 text-sm text-gray-700 bg-white"
+      (click)="openFromDatePicker()"
+    >
+      {{ fromDate || 'From Date' }}
+    </div>
+
+    <!-- Calendar Icon -->
+    <div class="absolute top-1/2 right-3 transform -translate-y-1/2 text-indigo-600 pointer-events-none z-0">
+      <i class="fas fa-calendar-alt text-lg"></i>
+    </div>
+  </div>
+
+  <!-- To Date -->
+  <div class="relative w-full sm:w-auto">
+    <!-- Native Date Input (Transparent) -->
+    <input 
+      #toDateInput
+      type="date"
+      [(ngModel)]="toDate"
+      class="absolute inset-0 w-full sm:w-56 opacity-0 z-10 cursor-pointer"
+    />
+
+    <!-- Fake Styled Input -->
+    <div
+      class="w-full sm:w-56 border border-gray-300 rounded-md py-2 pl-4 pr-12 text-sm text-gray-700 bg-white"
+      (click)="openToDatePicker()"
+    >
+      {{ toDate || 'To Date' }}
+    </div>
+
+    <!-- Calendar Icon -->
+    <div class="absolute top-1/2 right-3 transform -translate-y-1/2 text-indigo-600 pointer-events-none z-0">
+      <i class="fas fa-calendar-alt text-lg"></i>
+    </div>
+  </div>
+
+  <!-- Search Button -->
+  <button
+    (click)="filterByDate()"
+    class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-6 rounded-md shadow transition-all duration-200"
+  >
+    <i class="fas fa-search mr-2"></i> Search
+  </button>
+
+</div>
+
+
+
+
+
+
+
+
+
 
     <!-- Table -->
     <table class="w-full border-collapse border border-gray-300 mb-6 text-center text-gray-700 shadow-md rounded-md overflow-hidden">
@@ -60,6 +131,7 @@
 
     <!-- Buttons -->
     <div class="mt-6 flex justify-end gap-3">
+
 <button (click)="exportToExcel()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-4 py-2 rounded">
   Export to EXCEL
 </button>

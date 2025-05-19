@@ -3,6 +3,7 @@ import { DataService } from '../service/data.service';
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-billingsummary',

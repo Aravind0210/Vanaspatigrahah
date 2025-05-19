@@ -8,17 +8,7 @@
     <h2 class="text-center text-2xl font-bold text-gray-900 mb-2">Welcome Back</h2>
     <p class="text-center text-gray-600 mb-8">Sign in to your account</p>
     <form (ngSubmit)="onSubmit()" class="space-y-6">
-      <select
-        [(ngModel)]="selectedBranch"
-        name="selectedBranch"
-        required
-        class="w-full px-4 py-3 border border-gray-300 rounded-md text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
-      >
-        <option value="" disabled selected>Select Branch</option>
-        <option value="branch1">Branch 1</option>
-        <option value="branch2">Branch 2</option>
-        <option value="branch3">Branch 3</option>
-      </select>
+      
 
       <input
         [(ngModel)]="enteredUsername"

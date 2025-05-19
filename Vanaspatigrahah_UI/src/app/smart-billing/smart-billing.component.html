@@ -35,7 +35,7 @@
             <label class="block font-semibold text-green-700">Set Rate per Gram (₹)</label>
             <input [(ngModel)]="rate" type="text" class="mt-2 w-full p-3 text-lg border-2 rounded bg-green-100 focus:outline-none focus:ring-2 focus:ring-green-400" placeholder="e.g. 1.5" />
           </div>
-          <button (click)="generateAndSendBill()" class="mt-6 w-full bg-blue-700 hover:bg-blue-800 text-white text-xl font-semibold py-3 rounded-lg transition">
+          <button (click)="generateAndSendBill()" (click)="generateAndSendBilltoinsert()" class="mt-6 w-full bg-blue-700 hover:bg-blue-800 text-white text-xl font-semibold py-3 rounded-lg transition">
             💾 Generate & Save Bill
           </button>
           <p class="mt-4 text-center text-base text-gray-600 font-medium">{{ statusMessage }}</p>

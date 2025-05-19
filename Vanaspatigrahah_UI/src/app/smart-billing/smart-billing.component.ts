@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-
+import { DataService } from '../service/data.service';
 @Component({
   selector: 'app-smart-billing',
   standalone: true,
@@ -21,10 +21,24 @@ export class SmartBillingComponent {
   statusMessage: string = '';
   currentDateTime: string = '';
 
-  constructor() {
+  constructor(private dataService: DataService) {
     setInterval(() => {
       this.currentDateTime = new Date().toLocaleString();
     }, 1000);
+  }
+
+    generateAndSendBilltoinsert() {
+    this.statusMessage = 'Saving bill...';
+    const billData = this.calculate();
+
+    this.dataService.saveBill(billData).subscribe({
+      next: (res) => {
+        this.statusMessage = 'Bill saved successfully!';
+      },
+      error: (err) => {
+        this.statusMessage = `Error: ${err.message}`;
+      }
+    });
   }
 
   calculate() {

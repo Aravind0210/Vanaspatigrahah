@@ -20,5 +20,10 @@ export class DataService {
   }
 
   
+  saveBill(billData: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/api/save-bill`, billData);
+  }
+
+  
 }
 

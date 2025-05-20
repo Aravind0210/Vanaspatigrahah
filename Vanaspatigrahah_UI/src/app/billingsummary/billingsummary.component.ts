@@ -18,12 +18,21 @@ export class BillingsummaryComponent {
   @ViewChild('toDateInput') toDateInput!: ElementRef;
 
   gold: any[] = [];
+  pagedGold: any[] = [];
+
   totalWeight: number = 0;
   totalAmount: number = 0;
   totalLessWeight: number = 0;
   avgRate: number = 0;
+
   fromDate: string = '';
   toDate: string = '';
+
+  
+  currentPage: number = 1;
+  pageSize: number = 10;
+  totalPages: number = 1;
+  isFilterActive: boolean = false; 
 
   constructor(private dataService: DataService) {}
 
@@ -40,11 +49,14 @@ export class BillingsummaryComponent {
   this.toDateInput.nativeElement.click(); // fallback for older browsers
   }
 
+  
   filterByDate(): void {
     if (this.fromDate && this.toDate) {
       this.dataService.getgoldsummary(`?start_date=${this.fromDate}&end_date=${this.toDate}`).subscribe(
         (data) => {
           this.gold = data;
+          this.isFilterActive = true;      // activate pagination visibility
+          this.resetPagination();          // reset paging on new filtered data
           this.calculateSummary();
         },
         (error) => {
@@ -53,6 +65,7 @@ export class BillingsummaryComponent {
       );
     } else {
       alert('Please select both start and end dates.');
+      this.isFilterActive = false;      // no filter applied if invalid
     }
   }
 
@@ -60,6 +73,8 @@ export class BillingsummaryComponent {
     this.dataService.getgoldsummary('').subscribe(
       (data) => {
         this.gold = data;
+         this.isFilterActive = false;     // no filter applied on full data load
+        this.resetPagination();
         this.calculateSummary();
       },
       (error) => {
@@ -67,6 +82,8 @@ export class BillingsummaryComponent {
       }
     );
   }
+
+  
 
   deleteGold(id: number): void {
     if (confirm('Are you sure you want to delete this item?')) {
@@ -81,6 +98,24 @@ export class BillingsummaryComponent {
       );
     }
   }
+
+  resetPagination() {
+    this.currentPage = 1;
+    this.totalPages = Math.ceil(this.gold.length / this.pageSize) || 1;
+    this.setPagedData();
+  }
+
+  setPagedData() {
+    const startIndex = (this.currentPage - 1) * this.pageSize;
+    this.pagedGold = this.gold.slice(startIndex, startIndex + this.pageSize);
+  }
+
+  goToPage(page: number) {
+    if (page < 1 || page > this.totalPages) return;
+    this.currentPage = page;
+    this.setPagedData();
+  }
+
 
   calculateSummary(): void {
     this.totalWeight = this.gold.reduce((sum, item) => sum + Number(item.weight || 0), 0);

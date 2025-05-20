@@ -1,14 +1,11 @@
-<div class="bg-gray-100 min-h-screen flex flex-col items-center p-6 font-sans">
+<div class="bg-gray-100 min-h-screen flex flex-col items-stretch p-6 font-sans">
   <!-- Header with logo and company name -->
-  <header class="w-full max-w-4xl flex items-center bg-blue-700 text-white rounded-lg shadow-lg p-4 mb-8">
+  <header class="w-full flex items-center bg-blue-700 text-white p-4 mb-8">
     <img src="https://via.placeholder.com/60" alt="Company Logo" class="h-14 w-14 rounded-md mr-4" />
     <h1 class="text-3xl font-extrabold tracking-wide">Your Company Name</h1>
   </header>
 
-
-  
-
-  <div class="w-full max-w-4xl bg-white shadow-lg rounded-lg p-6">
+  <div class="w-full flex-grow bg-white p-6"> <!-- removed max-w and shadow, rounded -->
     <!-- Admin Summary Heading -->
     <div class="mb-6 text-center">
       <h2 class="inline-flex items-center justify-center text-3xl font-extrabold text-indigo-700 border-b-4 border-indigo-500 pb-1">
@@ -16,82 +13,61 @@
           <path stroke-linecap="round" stroke-linejoin="round" d="M9 17v-2a4 4 0 018 0v2m-4-2v6m-2 0h4" />
           <path stroke-linecap="round" stroke-linejoin="round" d="M12 12v.01" />
         </svg>
-        Admin Summary
+      Summary
       </h2>
       <p class="text-gray-500 mt-1">Manage and review the billing entries below</p>
     </div>
 
-<div class="w-full flex flex-wrap items-center gap-4 md:gap-[8.5rem] mb-6">
+    <div class="w-full flex flex-wrap items-center gap-4 md:gap-[8.5rem] mb-6 justify-end">
+      <!-- From Date -->
+      <div class="relative w-full sm:w-auto">
+        <input
+          #fromDateInput
+          type="date"
+          [(ngModel)]="fromDate"
+          class="absolute inset-0 w-full sm:w-56 opacity-0 z-10 cursor-pointer"
+        />
+        <div
+          class="w-full sm:w-56 border border-gray-300 rounded-md py-2 pl-4 pr-12 text-sm text-gray-700 bg-white"
+          (click)="openFromDatePicker()"
+        >
+          {{ fromDate || 'From Date' }}
+        </div>
+        <div class="absolute top-1/2 right-3 transform -translate-y-1/2 text-indigo-600 pointer-events-none z-0">
+          <i class="fas fa-calendar-alt text-lg"></i>
+        </div>
+      </div>
 
-  <!-- From Date -->
-  <div class="relative w-full sm:w-auto">
-    <!-- Native Date Input (Transparent) -->
-    <input
-      #fromDateInput
-      type="date"
-      [(ngModel)]="fromDate"
-      class="absolute inset-0 w-full sm:w-56 opacity-0 z-10 cursor-pointer"
-    />
+      <!-- To Date -->
+      <div class="relative w-full sm:w-auto">
+        <input 
+          #toDateInput
+          type="date"
+          [(ngModel)]="toDate"
+          class="absolute inset-0 w-full sm:w-56 opacity-0 z-10 cursor-pointer"
+        />
+        <div
+          class="w-full sm:w-56 border border-gray-300 rounded-md py-2 pl-4 pr-12 text-sm text-gray-700 bg-white"
+          (click)="openToDatePicker()"
+        >
+          {{ toDate || 'To Date' }}
+        </div>
+        <div class="absolute top-1/2 right-3 transform -translate-y-1/2 text-indigo-600 pointer-events-none z-0">
+          <i class="fas fa-calendar-alt text-lg"></i>
+        </div>
+      </div>
 
-    <!-- Fake Styled Input -->
-    <div
-      class="w-full sm:w-56 border border-gray-300 rounded-md py-2 pl-4 pr-12 text-sm text-gray-700 bg-white"
-      (click)="openFromDatePicker()"
-    >
-      {{ fromDate || 'From Date' }}
+      <!-- Search Button -->
+      <button
+        (click)="filterByDate()"
+        class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-6 rounded-md shadow transition-all duration-200"
+      >
+        <i class="fas fa-search mr-2"></i> Search
+      </button>
     </div>
-
-    <!-- Calendar Icon -->
-    <div class="absolute top-1/2 right-3 transform -translate-y-1/2 text-indigo-600 pointer-events-none z-0">
-      <i class="fas fa-calendar-alt text-lg"></i>
-    </div>
-  </div>
-
-  <!-- To Date -->
-  <div class="relative w-full sm:w-auto">
-    <!-- Native Date Input (Transparent) -->
-    <input 
-      #toDateInput
-      type="date"
-      [(ngModel)]="toDate"
-      class="absolute inset-0 w-full sm:w-56 opacity-0 z-10 cursor-pointer"
-    />
-
-    <!-- Fake Styled Input -->
-    <div
-      class="w-full sm:w-56 border border-gray-300 rounded-md py-2 pl-4 pr-12 text-sm text-gray-700 bg-white"
-      (click)="openToDatePicker()"
-    >
-      {{ toDate || 'To Date' }}
-    </div>
-
-    <!-- Calendar Icon -->
-    <div class="absolute top-1/2 right-3 transform -translate-y-1/2 text-indigo-600 pointer-events-none z-0">
-      <i class="fas fa-calendar-alt text-lg"></i>
-    </div>
-  </div>
-
-  <!-- Search Button -->
-  <button
-    (click)="filterByDate()"
-    class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-6 rounded-md shadow transition-all duration-200"
-  >
-    <i class="fas fa-search mr-2"></i> Search
-  </button>
-
-</div>
-
-
-
-
-
-
-
-
-
 
     <!-- Table -->
-    <table class="w-full border-collapse border border-gray-300 mb-6 text-center text-gray-700 shadow-md rounded-md overflow-hidden">
+    <table class="w-full border-collapse border border-gray-300 mb-6 text-center text-gray-700 shadow-none rounded-none overflow-visible">
       <thead>
         <tr class="bg-yellow-100 text-gray-800 uppercase tracking-wide text-sm">
           <th class="border border-gray-300 px-4 py-3">SL NO</th>
@@ -116,28 +92,40 @@
       </tbody>
     </table>
 
+    
     <!-- Summary -->
-<div class="bg-gray-50 p-6 rounded border border-gray-300 text-gray-700 font-semibold shadow-inner">
-  <div class="flex justify-between text-xl mb-2">
-    <span class="text-red-600">Total Wt: {{ totalWeight.toFixed(2) }} gm</span>
-    <span class="text-green-700">Total Rs: ₹{{ totalAmount.toFixed(2) }}</span>
-  </div>
-  <div class="text-center text-blue-700 font-bold text-2xl mb-1">
-    Avg. Rate 1 gm: ₹{{ avgRate.toFixed(2) }}/gm
-  </div>
-  <div class="text-center text-red-600 font-semibold text-lg">
-    Total Less Wt: {{ totalLessWeight.toFixed(2) }} gm
-  </div>
+    <div class="bg-gray-50 p-6 border border-gray-300 text-gray-700 font-semibold shadow-none rounded-none">
+      <div class="flex justify-between text-xl mb-2">
+        <span class="text-red-600">Total Wt: {{ totalWeight.toFixed(2) }} gm</span>
+        <span class="text-green-700">Total Rs: ₹{{ totalAmount.toFixed(2) }}</span>
+      </div>
+      <div class="text-center text-blue-700 font-bold text-2xl mb-1">
+        Avg. Rate 1 gm: ₹{{ avgRate.toFixed(2) }}/gm
+      </div>
+      <div class="text-center text-red-600 font-semibold text-lg">
+        Total Less Wt: {{ totalLessWeight.toFixed(2) }} gm
+      </div>
+    </div>
+
+    <div id="pagination" class="pagination" *ngIf="isFilterActive">
+  <!-- Pagination buttons inserted dynamically -->
+  <button (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 1">Prev</button>
+
+  <button *ngFor="let page of [].constructor(totalPages); let i = index"
+          (click)="goToPage(i + 1)"
+          [class.active]="currentPage === (i + 1)">
+    {{ i + 1 }}
+  </button>
+
+  <button (click)="goToPage(currentPage + 1)" [disabled]="currentPage === totalPages">Next</button>
 </div>
 
 
     <!-- Buttons -->
     <div class="mt-6 flex justify-end gap-3">
-
-<button (click)="exportToExcel()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-4 py-2 rounded">
-  Export to EXCEL
-</button>
-
+      <button (click)="exportToExcel()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-4 py-2 rounded">
+        Export to EXCEL
+      </button>
     </div>
   </div>
 </div>
